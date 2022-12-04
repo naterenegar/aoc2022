@@ -9,7 +9,7 @@ enum Hand {
     Scissors,
 }
 
-fn str_to_val(s: String) -> i32
+fn str_to_val(s: &String) -> i32
 {
     let mut i = s.split_whitespace();
     let h0 = match i.next() {
@@ -27,7 +27,7 @@ fn str_to_val(s: String) -> i32
     eval_game(h0, h1)
 }
 
-fn str_to_val_p2(s: String) -> i32
+fn str_to_val_p2(s: &String) -> i32
 {
     let mut i = s.split_whitespace();
     let h0 = match i.next() {
@@ -98,8 +98,8 @@ fn main() {
     if let Ok(lines) = read_lines("input.txt") {
         for line in lines {
             if let Ok(ip) = line {
-                x = x + str_to_val(ip.clone());
-                y = y + str_to_val_p2(ip);
+                x = x + str_to_val(&ip);
+                y = y + str_to_val_p2(&ip);
             }
         }
     }

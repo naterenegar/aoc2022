@@ -93,22 +93,17 @@ fn hand_value(hand: Hand) -> i32 {
 }
 
 fn main() {
-    let mut x = 0;
-    let mut y = 0;
-    if let Ok(lines) = read_lines("input.txt") {
-        for line in lines {
-            if let Ok(ip) = line {
-                x = x + str_to_val(&ip);
-                y = y + str_to_val_p2(&ip);
-            }
-        }
+    if let Ok(v) = read_lines("input.txt") {
+        let x: i32 = v.iter().map(|l| str_to_val(&l)).sum();
+        let y: i32 = v.iter().map(|l| str_to_val_p2(&l)).sum();
+        println!("Total points: {}", x);
+        println!("Total points (p2): {}", y);
     }
-    println!("Total points: {}", x);
-    println!("Total points (p2): {}", y);
 }
 
-fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
+fn read_lines<P>(filename: P) -> io::Result<Vec<String>>
 where P: AsRef<Path>, {
     let file = File::open(filename)?;
-    Ok(io::BufReader::new(file).lines())
+    let v = io::BufReader::new(file).lines().collect::<Result<Vec<_>, _>>()?;
+    Ok(v)
 }
